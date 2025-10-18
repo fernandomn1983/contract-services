@@ -2,18 +2,18 @@ package com.nurtricenter.contractservices.domain.aggregatepatient.patient;
 
 import java.util.UUID;
 
-public class Patient {
+public class PatientDomain {
 
-    private UUID patientId;
+    private int patientId;
     private String firstName;
     private String lastName;
     private String idDocument;
 
-    public UUID getPatientId() {
+    public int getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(UUID patientId) {
+    public void setPatientId(int patientId) {
         this.patientId = patientId;
     }
 

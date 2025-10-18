@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public interface ServiceRepository {
 
-    Service getService(UUID serviceId);
+    ServiceDomain getService(UUID serviceId);
 
 }

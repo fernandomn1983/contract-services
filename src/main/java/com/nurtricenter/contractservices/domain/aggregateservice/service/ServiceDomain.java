@@ -4,7 +4,7 @@ import com.nurtricenter.contractservices.domain.shared.valueobjects.Money;
 
 import java.util.UUID;
 
-public class Service {
+public class ServiceDomain {
 
     private UUID serviceId;
     private String description;

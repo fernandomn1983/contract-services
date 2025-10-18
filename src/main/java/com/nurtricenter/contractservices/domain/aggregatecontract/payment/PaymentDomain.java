@@ -4,21 +4,19 @@ import com.nurtricenter.contractservices.domain.shared.valueobjects.Money;
 import com.nurtricenter.contractservices.domain.shared.valueobjects.Quantity;
 import com.nurtricenter.contractservices.domain.shared.valueobjects.Status;
 
-import java.util.UUID;
+public class PaymentDomain {
 
-public class Payment {
-
-    private UUID paymentId;
+    private int paymentId;
     private Quantity quantity;
     private Money unitaryPrice;
     private Money totalPrice;
     private Status status;
 
-    public UUID getPaymentId() {
+    public int getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(UUID paymentId) {
+    public void setPaymentId(int paymentId) {
         this.paymentId = paymentId;
     }
 
