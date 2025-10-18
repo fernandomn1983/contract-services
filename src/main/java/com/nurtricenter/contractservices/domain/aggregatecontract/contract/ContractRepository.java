@@ -4,8 +4,8 @@ import java.util.UUID;
 
 public interface ContractRepository {
 
-    Contract createContract(Contract contract);
-    Contract updateContract(Contract contract);
-    Contract getContract(UUID contractId);
+    ContractDomain createContract(ContractDomain contractDomain);
+    ContractDomain updateContract(ContractDomain contractDomain);
+    ContractDomain getContract(UUID contractId);
 
 }

@@ -1,18 +1,16 @@
 package com.nurtricenter.contractservices.domain.aggregatecontract.invoice;
 
-import java.util.UUID;
+public class InvoiceDomain {
 
-public class Invoice {
-
-    private UUID invoiceId;
+    private int invoiceId;
     private String documentId;
     private String name;
 
-    public UUID getInvoiceId() {
+    public int getInvoiceId() {
         return invoiceId;
     }
 
-    public void setInvoiceId(UUID invoiceId) {
+    public void setInvoiceId(int invoiceId) {
         this.invoiceId = invoiceId;
     }
 
