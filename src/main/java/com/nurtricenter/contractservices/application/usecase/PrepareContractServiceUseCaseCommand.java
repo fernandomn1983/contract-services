@@ -6,7 +6,7 @@ import com.nurtricenter.contractservices.presentation.dto.PrepareContractRespons
 
 public class PrepareContractServiceUseCaseCommand implements Command<PrepareContractResponseBody> {
 
-    public PrepareContractRequestBody prepareContractRequestBody;
+    public final PrepareContractRequestBody prepareContractRequestBody;
 
     public PrepareContractServiceUseCaseCommand(PrepareContractRequestBody prepareContractRequestBody){
         this.prepareContractRequestBody = prepareContractRequestBody;

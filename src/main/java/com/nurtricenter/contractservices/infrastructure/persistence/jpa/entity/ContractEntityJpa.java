@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "contract")
@@ -26,7 +27,11 @@ public class ContractEntityJpa {
     @Column(name = "contract_status")
     private int status;
 
-    @Column(name = "contract_date")
-    private LocalDateTime contractDate; //TODO: change schema to use now() for this in DB and change name to created_at
+    @OneToMany(mappedBy = "contractId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ContractServiceEntityJpa> services;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private PatientEntityJpa patient;
 
 }

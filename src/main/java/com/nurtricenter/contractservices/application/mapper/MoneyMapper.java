@@ -1,6 +1,6 @@
 package com.nurtricenter.contractservices.application.mapper;
 
-import com.nurtricenter.contractservices.domain.shared.valueobjects.Money;
+import com.nurtricenter.contractservices.domain.valueobjects.Money;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
