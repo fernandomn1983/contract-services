@@ -1,6 +1,9 @@
 package com.nurtricenter.contractservices.infrastructure.persistence.jpa.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +15,7 @@ public class PatientEntityJpa {
 
     @Id
     @Column(name = "patient_id")
-    private int id;
+    private Integer id;
 
     @Column(name = "patient_name")
     private String name;
