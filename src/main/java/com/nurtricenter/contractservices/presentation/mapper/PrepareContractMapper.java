@@ -61,6 +61,7 @@ public class PrepareContractMapper {
         PrepareContractServicesResponseBody prepareContractServicesResponseBody = new PrepareContractServicesResponseBody();
 
         prepareContractServicesResponseBody.setServiceId(serviceDomain.getServiceId());
+        prepareContractServicesResponseBody.setQuantity(serviceDomain.getQuantity().getValue());
 
         return prepareContractServicesResponseBody;
     }

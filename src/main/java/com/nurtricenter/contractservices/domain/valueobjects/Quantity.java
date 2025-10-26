@@ -19,4 +19,8 @@ public class Quantity {
         return value;
     }
 
+    public int getValue() {
+        return value;
+    }
+
 }

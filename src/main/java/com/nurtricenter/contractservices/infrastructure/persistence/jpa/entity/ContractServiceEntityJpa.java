@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Entity
 @Table(name = "contract_service")
 @IdClass(ContractServiceId.class)
@@ -22,5 +20,8 @@ public class ContractServiceEntityJpa {
     @ManyToOne
     @JoinColumn(name = "contract_id")
     private ContractEntityJpa contractId;
+
+    @Column(name = "contract_service_quantity", nullable = false)
+    private int quantity;
 
 }
