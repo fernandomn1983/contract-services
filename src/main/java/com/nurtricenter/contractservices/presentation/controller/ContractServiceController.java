@@ -1,10 +1,11 @@
 package com.nurtricenter.contractservices.presentation.controller;
 
 import an.awesome.pipelinr.Pipeline;
-import com.nurtricenter.contractservices.application.usecase.ModifyContractServiceUseCaseCommand;
+import com.nurtricenter.contractservices.application.usecase.CancelContractServiceUseCaseCommand;
 import com.nurtricenter.contractservices.application.usecase.PrepareContractServiceUseCaseCommand;
+import com.nurtricenter.contractservices.shared.exception.InvalidValueException;
 import com.nurtricenter.contractservices.shared.exception.NotFoundException;
-import com.nurtricenter.contractservices.presentation.dto.ModifyContractRequestBody;
+import com.nurtricenter.contractservices.presentation.dto.PaymentContractServiceRequestBody;
 import com.nurtricenter.contractservices.presentation.dto.PrepareContractRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,26 +21,38 @@ public class ContractServiceController {
 
     @PostMapping
     @ResponseStatus
-    public ResponseEntity<?> prepareContractService(@RequestBody PrepareContractRequestBody prepareContractRequestBody) {
+    public ResponseEntity<?> prepareContractService(
+            @RequestBody PrepareContractRequestBody prepareContractRequestBody) {
         try {
-            PrepareContractServiceUseCaseCommand prepareContractServiceUseCaseCommand = new PrepareContractServiceUseCaseCommand(prepareContractRequestBody);
+            PrepareContractServiceUseCaseCommand prepareContractServiceUseCaseCommand = new PrepareContractServiceUseCaseCommand(
+                    prepareContractRequestBody);
 
             return ResponseEntity.ok(prepareContractServiceUseCaseCommand.execute(pipeline));
+        } catch (InvalidValueException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
-    @PatchMapping("/{contractId}")
+    @PostMapping("/{contractId}/cancellations")
     @ResponseStatus
-    public ResponseEntity<?> modifyContractService(@PathVariable int contractId, @RequestBody ModifyContractRequestBody modifyContractRequestBody) {
+    public ResponseEntity<?> cancelContractService(@PathVariable int contractId) {
         try {
-            ModifyContractServiceUseCaseCommand modifyContractServiceUseCaseCommand = new ModifyContractServiceUseCaseCommand(modifyContractRequestBody);
+            CancelContractServiceUseCaseCommand cancelContractServiceUseCaseCommand = new CancelContractServiceUseCaseCommand(
+                    contractId);
+            cancelContractServiceUseCaseCommand.execute(pipeline);
 
-            return ResponseEntity.ok(modifyContractServiceUseCaseCommand.execute(pipeline));
+            return ResponseEntity.noContent().build();
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
+    }
+
+    @PostMapping("/{contractId}/payments")
+    @ResponseStatus
+    public ResponseEntity<?> payContractService(@PathVariable int contractId, @RequestBody PaymentContractServiceRequestBody paymentRequestBody) {
+        return ResponseEntity.ok(paymentRequestBody);
     }
 
 }

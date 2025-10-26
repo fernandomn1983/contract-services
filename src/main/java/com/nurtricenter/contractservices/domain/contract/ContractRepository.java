@@ -1,11 +1,9 @@
 package com.nurtricenter.contractservices.domain.contract;
 
-import java.util.UUID;
-
 public interface ContractRepository {
 
     ContractDomain createContract(ContractDomain contractDomain);
-    ContractDomain updateContract(ContractDomain contractDomain);
-    ContractDomain getContract(UUID contractId);
+    ContractDomain getContract(Integer contractId);
+    void cancelContract(Integer contractId);
 
 }

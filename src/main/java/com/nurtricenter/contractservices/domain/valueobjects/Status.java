@@ -6,7 +6,7 @@ public enum Status {
 
     PREPARED(1, "Preparado"),
     PAID(2, "Pagado"),
-    CANCELLED(3, "Cancelado");
+    CANCELED(3, "Cancelado");
 
     private static final String INVALID_CODE_MSG_FORMAT_EXCEPTION = "Status Code = %s";
 

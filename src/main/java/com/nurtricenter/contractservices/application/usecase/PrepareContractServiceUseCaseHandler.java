@@ -6,6 +6,7 @@ import com.nurtricenter.contractservices.domain.contract.ContractDomain;
 import com.nurtricenter.contractservices.domain.contract.ContractRepository;
 import com.nurtricenter.contractservices.domain.patient.PatientDomain;
 import com.nurtricenter.contractservices.domain.service.ServiceDomain;
+import com.nurtricenter.contractservices.domain.valueobjects.Quantity;
 import com.nurtricenter.contractservices.domain.valueobjects.Status;
 import com.nurtricenter.contractservices.presentation.dto.PrepareContractResponseBody;
 import com.nurtricenter.contractservices.presentation.mapper.PrepareContractMapper;
@@ -33,6 +34,7 @@ public class PrepareContractServiceUseCaseHandler implements Command.Handler<Pre
                 .map(prepareContractServicesRequestBody -> {
                     ServiceDomain serviceDomain = new ServiceDomain();
                     serviceDomain.setServiceId(prepareContractServicesRequestBody.getServiceId());
+                    serviceDomain.setQuantity(new Quantity(prepareContractServicesRequestBody.getQuantity()));
 
                     return serviceDomain;
                 })
