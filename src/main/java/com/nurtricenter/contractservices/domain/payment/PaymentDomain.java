@@ -1,16 +1,13 @@
 package com.nurtricenter.contractservices.domain.payment;
 
+import com.nurtricenter.contractservices.domain.invoice.InvoiceDomain;
 import com.nurtricenter.contractservices.domain.valueobjects.Money;
-import com.nurtricenter.contractservices.domain.valueobjects.Quantity;
-import com.nurtricenter.contractservices.domain.valueobjects.Status;
 
 public class PaymentDomain {
 
     private int paymentId;
-    private Quantity quantity;
-    private Money unitaryPrice;
     private Money totalPrice;
-    private Status status;
+    private InvoiceDomain invoiceDomain;
 
     public int getPaymentId() {
         return paymentId;
@@ -18,22 +15,6 @@ public class PaymentDomain {
 
     public void setPaymentId(int paymentId) {
         this.paymentId = paymentId;
-    }
-
-    public Quantity getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Quantity quantity) {
-        this.quantity = quantity;
-    }
-
-    public Money getUnitaryPrice() {
-        return unitaryPrice;
-    }
-
-    public void setUnitaryPrice(Money unitaryPrice) {
-        this.unitaryPrice = unitaryPrice;
     }
 
     public Money getTotalPrice() {
@@ -44,12 +25,12 @@ public class PaymentDomain {
         this.totalPrice = totalPrice;
     }
 
-    public Status getStatus() {
-        return status;
+    public InvoiceDomain getInvoiceDomain() {
+        return invoiceDomain;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setInvoiceDomain(InvoiceDomain invoiceDomain) {
+        this.invoiceDomain = invoiceDomain;
     }
 
 }

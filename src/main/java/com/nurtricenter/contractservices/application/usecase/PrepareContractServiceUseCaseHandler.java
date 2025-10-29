@@ -1,7 +1,6 @@
 package com.nurtricenter.contractservices.application.usecase;
 
 import an.awesome.pipelinr.Command;
-
 import com.nurtricenter.contractservices.domain.contract.ContractDomain;
 import com.nurtricenter.contractservices.domain.contract.ContractRepository;
 import com.nurtricenter.contractservices.domain.patient.PatientDomain;

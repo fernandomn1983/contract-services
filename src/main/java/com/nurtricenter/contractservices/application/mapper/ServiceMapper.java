@@ -1,6 +1,7 @@
 package com.nurtricenter.contractservices.application.mapper;
 
 import com.nurtricenter.contractservices.domain.service.ServiceDomain;
+import com.nurtricenter.contractservices.domain.valueobjects.Money;
 import com.nurtricenter.contractservices.domain.valueobjects.Quantity;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.entity.ContractServiceEntityJpa;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.entity.ServiceEntityJpa;
@@ -8,25 +9,27 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-@Mapper(componentModel = "spring", uses = MoneyMapper.class)
+@Mapper(componentModel = "spring")
 public interface ServiceMapper {
-
-    @Mapping(source = "id", target = "serviceId")
-    @Mapping(source = "description", target = "description")
-    @Mapping(source = "cost", target = "price")
-    ServiceDomain toDomain(ServiceEntityJpa serviceEntityJpa);
 
     @Mapping(source = "serviceId.id", target = "serviceId")
     @Mapping(source = "serviceId.description", target = "description")
-    @Mapping(source = "quantity", target = "quantity", qualifiedByName = "mapQuantity")
+    @Mapping(source = "serviceId.cost", target = "price", qualifiedByName = "toMoney")
+    @Mapping(source = "quantity", target = "quantity", qualifiedByName = "toQuantity")
     ServiceDomain toDomain(ContractServiceEntityJpa contractServiceEntityJpa);
 
-    @Named("mapQuantity")
-    default Quantity mapToQuantity(int quantity) {
+    @Named("toQuantity")
+    default Quantity toQuantity(int quantity) {
         return new Quantity(quantity);
+    }
+
+    @Named("toMoney")
+    default Money toMoney(BigDecimal amount) {
+        return new Money(amount);
     }
 
     List<ServiceDomain> toDomainList(List<ServiceEntityJpa> serviceEntityJpaList);
