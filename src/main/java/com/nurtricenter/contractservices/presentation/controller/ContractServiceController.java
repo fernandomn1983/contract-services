@@ -2,6 +2,7 @@ package com.nurtricenter.contractservices.presentation.controller;
 
 import an.awesome.pipelinr.Pipeline;
 import com.nurtricenter.contractservices.application.usecase.CancelContractServiceUseCaseCommand;
+import com.nurtricenter.contractservices.application.usecase.PayContractServiceUseCaseCommand;
 import com.nurtricenter.contractservices.application.usecase.PrepareContractServiceUseCaseCommand;
 import com.nurtricenter.contractservices.shared.exception.InvalidValueException;
 import com.nurtricenter.contractservices.shared.exception.NotFoundException;
@@ -52,7 +53,13 @@ public class ContractServiceController {
     @PostMapping("/{contractId}/payments")
     @ResponseStatus
     public ResponseEntity<?> payContractService(@PathVariable int contractId, @RequestBody PaymentContractServiceRequestBody paymentRequestBody) {
-        return ResponseEntity.ok(paymentRequestBody);
+        try {
+            PayContractServiceUseCaseCommand payContractServiceUseCaseCommand = new PayContractServiceUseCaseCommand(paymentRequestBody);
+
+            return ResponseEntity.ok(payContractServiceUseCaseCommand.execute(pipeline));
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
 }
