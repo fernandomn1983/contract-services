@@ -15,8 +15,11 @@ public class CancelContractServiceUseCaseHandler implements Command.Handler<Canc
 
     @Override
     public Void handle(CancelContractServiceUseCaseCommand cancelContractServiceUseCaseCommand) {
+        //TODO: leer la entidad
+        //TODO: llamar metodo cancel
+        //TODO: update
         contractRepository.cancelContract(cancelContractServiceUseCaseCommand.contractId);
-        
+
         return null;
     }
 
