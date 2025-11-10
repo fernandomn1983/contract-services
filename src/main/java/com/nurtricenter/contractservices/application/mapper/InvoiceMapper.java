@@ -9,7 +9,7 @@ import org.mapstruct.Named;
 
 import java.time.LocalDate;
 
-@Mapper(componentModel = "spring", uses = {InvoiceDetailsMapper.class})
+@Mapper(componentModel = "spring")
 public interface InvoiceMapper {
 
     @Mapping(target = "identityDocument", source = "documentId")

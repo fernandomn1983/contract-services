@@ -1,0 +1,28 @@
+# Building
+FROM maven:3-eclipse-temurin-25 AS build
+
+WORKDIR /workspace
+
+COPY pom.xml ./
+COPY .mvn/ .mvn/
+COPY mvnw .
+COPY src ./src
+
+RUN --mount=type=cache,target=/root/.m2 mvn clean package
+
+# Running
+FROM eclipse-temurin:25-alpine
+
+LABEL MAINTAINER="fernando.murillo.noya@gmail.com"
+
+WORKDIR /app
+
+ENV APP_PORT=8440
+
+ARG JAR_FILE=target/*.jar
+
+COPY --from=build /workspace/${JAR_FILE} /app/app.jar
+
+EXPOSE ${APP_PORT}
+
+ENTRYPOINT ["java", "-Dspring.profiles.active=local", "-jar", "/app/app.jar"]

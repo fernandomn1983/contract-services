@@ -18,7 +18,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ContractServiceController {
 
+    private static final String I_AM_ALIVE = "I'm alive!";
+
     private final Pipeline pipeline;
+
+    @GetMapping("/healthcheck")
+    public ResponseEntity<?> healthcheck(){
+        return ResponseEntity.ok(I_AM_ALIVE);
+    }
 
     @PostMapping
     @ResponseStatus
