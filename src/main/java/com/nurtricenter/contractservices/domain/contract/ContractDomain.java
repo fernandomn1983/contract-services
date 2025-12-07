@@ -66,5 +66,8 @@ public class ContractDomain {
         this.serviceDomainList = serviceDomainList;
     }
 
+    public void cancel() {
+        this.contractStatus = Status.CANCELED;
+    }
 
 }

@@ -108,4 +108,13 @@ public class ContractRepositoryImpl implements ContractRepository {
         contractRepositoryJpa.save(contractEntityJpa);
     }
 
+    @Override
+    public ContractDomain updateContract(ContractDomain contractDomain) {
+        ContractEntityJpa contractEntityJpa = contractMapper.toEntityJpa(contractDomain);
+
+        contractEntityJpa = contractRepositoryJpa.save(contractEntityJpa);
+
+        return contractMapper.toDomain(contractEntityJpa);
+    }
+
 }
