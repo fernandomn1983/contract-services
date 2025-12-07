@@ -5,5 +5,6 @@ public interface ContractRepository {
     ContractDomain createContract(ContractDomain contractDomain);
     ContractDomain getContract(Integer contractId);
     void cancelContract(Integer contractId);
+    ContractDomain updateContract(ContractDomain contractDomain);
 
 }

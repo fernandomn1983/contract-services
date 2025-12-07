@@ -1,6 +1,7 @@
 package com.nurtricenter.contractservices.application.usecase;
 
 import an.awesome.pipelinr.Command;
+import com.nurtricenter.contractservices.domain.contract.ContractDomain;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Component;
@@ -15,8 +16,12 @@ public class CancelContractServiceUseCaseHandler implements Command.Handler<Canc
 
     @Override
     public Void handle(CancelContractServiceUseCaseCommand cancelContractServiceUseCaseCommand) {
-        contractRepository.cancelContract(cancelContractServiceUseCaseCommand.contractId);
-        
+        ContractDomain contractDomain = contractRepository.getContract(cancelContractServiceUseCaseCommand.contractId);
+
+        contractDomain.cancel();
+
+        contractRepository.updateContract(contractDomain);
+
         return null;
     }
 
