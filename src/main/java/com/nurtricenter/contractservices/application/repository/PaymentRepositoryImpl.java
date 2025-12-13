@@ -6,7 +6,6 @@ import com.nurtricenter.contractservices.domain.invoice.InvoiceDetailDomain;
 import com.nurtricenter.contractservices.domain.invoice.InvoiceDomain;
 import com.nurtricenter.contractservices.domain.payment.PaymentDomain;
 import com.nurtricenter.contractservices.domain.payment.PaymentRepository;
-import com.nurtricenter.contractservices.domain.valueobjects.Status;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.entity.*;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.repository.ContractRepositoryJpa;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.repository.InvoiceBatchRepositoryJpa;
@@ -35,6 +34,8 @@ public class PaymentRepositoryImpl implements PaymentRepository {
 
     @Override
     public PaymentDomain pay(PaymentDomain paymentDomain, ContractDomain contractDomain) {
+        contractDomain.pay();
+
         PaymentEntityJpa paymentEntityJpa = new PaymentEntityJpa();
         paymentEntityJpa.setTotalCost(paymentDomain.getTotalPrice().getAmount());
 
@@ -43,7 +44,7 @@ public class PaymentRepositoryImpl implements PaymentRepository {
             throw new NotFoundException(String.format(CONTRACT_ID_MSG_FORMAT_EXCEPTION, contractDomain.getContractId()));
         }
         ContractEntityJpa contractEntityJpa = optionalPreparedContractEntityJpa.get();
-        contractEntityJpa.setStatus(Status.PAID.getCode());
+        contractEntityJpa.setStatus(contractDomain.getContractStatus().getCode());
         paymentEntityJpa.setContractEntityJpa(contractEntityJpa);
 
         InvoiceEntityJpa invoiceEntityJpa = prepareInvoiceEntityJpa(paymentDomain.getInvoiceDomain());

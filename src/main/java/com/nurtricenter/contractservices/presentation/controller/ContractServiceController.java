@@ -4,10 +4,10 @@ import an.awesome.pipelinr.Pipeline;
 import com.nurtricenter.contractservices.application.usecase.CancelContractServiceUseCaseCommand;
 import com.nurtricenter.contractservices.application.usecase.PayContractServiceUseCaseCommand;
 import com.nurtricenter.contractservices.application.usecase.PrepareContractServiceUseCaseCommand;
-import com.nurtricenter.contractservices.shared.exception.InvalidValueException;
-import com.nurtricenter.contractservices.shared.exception.NotFoundException;
 import com.nurtricenter.contractservices.presentation.dto.PaymentContractServiceRequestBody;
 import com.nurtricenter.contractservices.presentation.dto.PrepareContractRequestBody;
+import com.nurtricenter.contractservices.shared.exception.InvalidValueException;
+import com.nurtricenter.contractservices.shared.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class ContractServiceController {
     private final Pipeline pipeline;
 
     @GetMapping("/healthcheck")
-    public ResponseEntity<?> healthcheck(){
+    public ResponseEntity<?> healthcheck() {
         return ResponseEntity.ok(I_AM_ALIVE);
     }
 
@@ -47,8 +47,7 @@ public class ContractServiceController {
     @ResponseStatus
     public ResponseEntity<?> cancelContractService(@PathVariable int contractId) {
         try {
-            CancelContractServiceUseCaseCommand cancelContractServiceUseCaseCommand = new CancelContractServiceUseCaseCommand(
-                    contractId);
+            CancelContractServiceUseCaseCommand cancelContractServiceUseCaseCommand = new CancelContractServiceUseCaseCommand(contractId);
             cancelContractServiceUseCaseCommand.execute(pipeline);
 
             return ResponseEntity.noContent().build();
@@ -61,7 +60,7 @@ public class ContractServiceController {
     @ResponseStatus
     public ResponseEntity<?> payContractService(@PathVariable int contractId, @RequestBody PaymentContractServiceRequestBody paymentRequestBody) {
         try {
-            PayContractServiceUseCaseCommand payContractServiceUseCaseCommand = new PayContractServiceUseCaseCommand(paymentRequestBody);
+            PayContractServiceUseCaseCommand payContractServiceUseCaseCommand = new PayContractServiceUseCaseCommand(contractId, paymentRequestBody);
 
             return ResponseEntity.ok(payContractServiceUseCaseCommand.execute(pipeline));
         } catch (NotFoundException e) {

@@ -2,16 +2,16 @@ package com.nurtricenter.contractservices.domain.patient;
 
 public class PatientDomain {
 
-    private int patientId;
+    private String patientId;
     private String firstName;
     private String lastName;
     private String idDocument;
 
-    public int getPatientId() {
+    public String getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(int patientId) {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 

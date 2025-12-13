@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class PaymentContractServiceRequestBody {
     
-    private int contractId;
     private String invoiceFullName;
     private String invoiceIdentifyDocument;
 

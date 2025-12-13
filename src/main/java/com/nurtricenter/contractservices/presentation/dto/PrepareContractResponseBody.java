@@ -10,7 +10,7 @@ import java.util.List;
 public class PrepareContractResponseBody {
 
     private int contractId;
-    private int patientId;
+    private String patientId;
     private int contractStatus;
     List<PrepareContractServicesResponseBody> services;
 
