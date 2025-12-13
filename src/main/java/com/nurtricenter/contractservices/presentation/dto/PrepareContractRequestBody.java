@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 public class PrepareContractRequestBody {
 
-    private int patientId;
+    private String patientId;
     private LocalDateTime contractStartDate;
     private LocalDateTime contractEndDate;
     private List<PrepareContractServicesRequestBody> services;

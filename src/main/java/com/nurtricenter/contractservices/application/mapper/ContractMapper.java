@@ -14,6 +14,8 @@ public interface ContractMapper {
     @Mapping(source = "contractStartDate", target = "startDate")
     @Mapping(source = "contractEndDate", target = "endDate")
     @Mapping(source = "contractStatus", target = "status", qualifiedByName = "toContractStatus")
+    @Mapping(source = "patientDomain", target = "patient")
+    @Mapping(source = "serviceDomainList", target = "services")
     ContractEntityJpa toEntityJpa(ContractDomain contractDomain);
 
     @Mapping(source = "id", target = "contractId")

@@ -70,4 +70,12 @@ public class ContractDomain {
         this.contractStatus = Status.CANCELED;
     }
 
+    public void pay() {
+        this.contractStatus = Status.PAID;
+    }
+
+    public void prepare() {
+        this.contractStatus = Status.PREPARED;
+    }
+
 }

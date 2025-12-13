@@ -32,12 +32,28 @@ public interface ServiceMapper {
         return new Money(amount);
     }
 
-    List<ServiceDomain> toDomainList(List<ServiceEntityJpa> serviceEntityJpaList);
+    @Mapping(source = "serviceId", target = "serviceId.id")
+    @Mapping(source = "description", target = "serviceId.description")
+    @Mapping(source = "price", target = "serviceId.cost", qualifiedByName = "toCost")
+    @Mapping(source = "quantity", target = "quantity", qualifiedByName = "toQuantityPrimitive")
+    ContractServiceEntityJpa toEntity(ServiceDomain serviceDomain);
+
+    @Named("toCost")
+    default BigDecimal toCost(Money money) {
+        return money == null ? new BigDecimal(0) : money.getAmount();
+    }
+
+    @Named("toQuantityPrimitive")
+    default int toQuantityPrimitive(Quantity quantity) {
+        return quantity.getValue();
+    }
+
+    List<ServiceDomain> toServiceDomainList(List<ServiceEntityJpa> serviceEntityJpaList);
 
     @Mapping(source = "serviceId", target = "id")
     @Mapping(source = "description", target = "description")
     @Mapping(source = "price.amount", target = "cost")
-    ServiceEntityJpa toJpaEntity(ServiceDomain serviceDomain);
+    ServiceEntityJpa toServiceJpaEntity(ServiceDomain serviceDomain);
 
     default UUID map(ServiceEntityJpa serviceEntityJpa) {
         return serviceEntityJpa.getId();
@@ -49,5 +65,7 @@ public interface ServiceMapper {
 
         return serviceEntityJpa;
     }
+
+    List<ServiceEntityJpa> toServiceJpaList(List<ServiceDomain> serviceDomainList);
 
 }

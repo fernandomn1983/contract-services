@@ -29,7 +29,7 @@ public class PayContractServiceUseCaseHandler implements Command.Handler<PayCont
 
     @Override
     public PaymentContractServiceResponseBody handle(PayContractServiceUseCaseCommand payContractServiceUseCaseCommand) {
-        ContractDomain contractDomain = contractRepository.getContract(payContractServiceUseCaseCommand.paymentRequestBody.getContractId());
+        ContractDomain contractDomain = contractRepository.getContract(payContractServiceUseCaseCommand.contractId);
         InvoiceDomain invoiceDomain = prepareInvoice(contractDomain, payContractServiceUseCaseCommand.paymentRequestBody);
         PaymentDomain paymentDomain = preparePayment(invoiceDomain);
         paymentDomain.setInvoiceDomain(invoiceDomain);

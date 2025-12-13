@@ -6,6 +6,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "patient")
@@ -14,8 +18,9 @@ import lombok.Setter;
 public class PatientEntityJpa {
 
     @Id
-    @Column(name = "patient_id")
-    private Integer id;
+    @JdbcTypeCode(SqlTypes.UUID)
+    @Column(name = "patient_id", columnDefinition = "UUID")
+    private UUID id;
 
     @Column(name = "patient_name")
     private String name;

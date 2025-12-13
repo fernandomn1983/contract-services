@@ -27,7 +27,7 @@ public class ContractEntityJpa {
     @Column(name = "contract_status")
     private int status;
 
-    @OneToMany(mappedBy = "contractId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contractId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ContractServiceEntityJpa> services;
 
     @ManyToOne

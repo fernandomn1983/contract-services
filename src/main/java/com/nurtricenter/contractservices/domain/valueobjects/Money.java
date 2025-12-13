@@ -35,12 +35,4 @@ public class Money {
         return amount;
     }
 
-    public String getShortMoney() {
-        return currencyCode + " " + amount.toString();
-    }
-
-    public String getExtendedCurrency() {
-        return currency + " " + amount.toString();
-    }
-
 }

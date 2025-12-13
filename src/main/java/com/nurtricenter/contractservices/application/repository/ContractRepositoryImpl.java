@@ -4,8 +4,6 @@ import com.nurtricenter.contractservices.application.mapper.ContractMapper;
 import com.nurtricenter.contractservices.domain.contract.ContractDomain;
 import com.nurtricenter.contractservices.domain.contract.ContractRepository;
 import com.nurtricenter.contractservices.domain.service.ServiceDomain;
-import com.nurtricenter.contractservices.domain.valueobjects.Status;
-import com.nurtricenter.contractservices.shared.exception.NotFoundException;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.entity.ContractEntityJpa;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.entity.ContractServiceEntityJpa;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.entity.PatientEntityJpa;
@@ -13,14 +11,11 @@ import com.nurtricenter.contractservices.infrastructure.persistence.jpa.entity.S
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.repository.ContractRepositoryJpa;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.repository.PatientRepositoryJpa;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.repository.ServiceRepositoryJpa;
+import com.nurtricenter.contractservices.shared.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -38,8 +33,7 @@ public class ContractRepositoryImpl implements ContractRepository {
 
     @Override
     public ContractDomain createContract(ContractDomain contractDomain) {
-        Optional<PatientEntityJpa> optionalPatientEntityJpa = patientRepositoryJpa
-                .findById(contractDomain.getPatientDomain().getPatientId());
+        Optional<PatientEntityJpa> optionalPatientEntityJpa = patientRepositoryJpa.findById(UUID.fromString(contractDomain.getPatientDomain().getPatientId()));
         if (optionalPatientEntityJpa.isEmpty()) {
             throw new NotFoundException(
                     String.format(PATIENT_ID_MSG_FORMAT_EXCEPTION, contractDomain.getPatientDomain().getPatientId()));
@@ -56,7 +50,7 @@ public class ContractRepositoryImpl implements ContractRepository {
                 .collect(Collectors.toSet());
         List<ServiceEntityJpa> serviceEntityJpaList = serviceRepositoryJpa.findAllById(serviceUuids);
         if (serviceEntityJpaList.isEmpty() || serviceEntityJpaList.size() != serviceUuids.size()) {
-            throw new NotFoundException(String.format(SERVICE_ID_MSG_FORMAT_EXCEPTION, serviceUuids.toString()));
+            throw new NotFoundException(String.format(SERVICE_ID_MSG_FORMAT_EXCEPTION, serviceUuids));
         }
 
         ContractEntityJpa contractEntityJpaForCreation = contractMapper.toEntityJpa(contractDomain);
@@ -96,25 +90,19 @@ public class ContractRepositoryImpl implements ContractRepository {
     }
 
     @Override
-    public void cancelContract(Integer contractId) {
-        Optional<ContractEntityJpa> optionalContractEntityJpa = contractRepositoryJpa.findPreparedContractByContractId(contractId);
-        if (optionalContractEntityJpa.isEmpty()) {
-            throw new NotFoundException(String.format(CONTRACT_ID_MSG_FORMAT_EXCEPTION, contractId));
-        }
-
-        ContractEntityJpa contractEntityJpa = optionalContractEntityJpa.get();
-        contractEntityJpa.setStatus(Status.CANCELED.getCode());
-
-        contractRepositoryJpa.save(contractEntityJpa);
-    }
-
-    @Override
     public ContractDomain updateContract(ContractDomain contractDomain) {
         ContractEntityJpa contractEntityJpa = contractMapper.toEntityJpa(contractDomain);
+        linkContract(contractEntityJpa);
 
         contractEntityJpa = contractRepositoryJpa.save(contractEntityJpa);
 
         return contractMapper.toDomain(contractEntityJpa);
+    }
+
+    private void linkContract(ContractEntityJpa contractEntityJpa) {
+        for (ContractServiceEntityJpa contractServiceEntityJpa : contractEntityJpa.getServices()) {
+            contractServiceEntityJpa.setContractId(contractEntityJpa);
+        }
     }
 
 }

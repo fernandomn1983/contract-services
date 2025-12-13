@@ -4,6 +4,8 @@ import com.nurtricenter.contractservices.infrastructure.persistence.jpa.entity.P
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
-public interface PatientRepositoryJpa extends JpaRepository<PatientEntityJpa, Integer> {
+public interface PatientRepositoryJpa extends JpaRepository<PatientEntityJpa, UUID> {
 }

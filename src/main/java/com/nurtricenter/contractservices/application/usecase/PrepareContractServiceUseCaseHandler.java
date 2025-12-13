@@ -6,7 +6,6 @@ import com.nurtricenter.contractservices.domain.contract.ContractRepository;
 import com.nurtricenter.contractservices.domain.patient.PatientDomain;
 import com.nurtricenter.contractservices.domain.service.ServiceDomain;
 import com.nurtricenter.contractservices.domain.valueobjects.Quantity;
-import com.nurtricenter.contractservices.domain.valueobjects.Status;
 import com.nurtricenter.contractservices.presentation.dto.PrepareContractResponseBody;
 import com.nurtricenter.contractservices.presentation.mapper.PrepareContractMapper;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +50,7 @@ public class PrepareContractServiceUseCaseHandler implements Command.Handler<Pre
 
         contractDomain.setContractStartDate(prepareContractServiceUseCaseCommand.prepareContractRequestBody.getContractStartDate());
         contractDomain.setContractEndDate(prepareContractServiceUseCaseCommand.prepareContractRequestBody.getContractEndDate());
-        contractDomain.setContractStatus(Status.PREPARED);
+        contractDomain.prepare();
 
         return contractDomain;
     }
