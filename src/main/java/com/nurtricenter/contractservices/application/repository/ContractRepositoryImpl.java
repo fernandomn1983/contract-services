@@ -34,7 +34,7 @@ public class ContractRepositoryImpl implements ContractRepository {
     @Override
     public ContractDomain createContract(ContractDomain contractDomain) {
         Optional<PatientEntityJpa> optionalPatientEntityJpa = patientRepositoryJpa.findById(UUID.fromString(contractDomain.getPatientDomain().getPatientId()));
-        if (optionalPatientEntityJpa.isEmpty()) {
+        if (!optionalPatientEntityJpa.isPresent()) {
             throw new NotFoundException(
                     String.format(PATIENT_ID_MSG_FORMAT_EXCEPTION, contractDomain.getPatientDomain().getPatientId()));
         }
@@ -76,13 +76,13 @@ public class ContractRepositoryImpl implements ContractRepository {
 
                     return contractServiceEntityJpa;
                 })
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
     public ContractDomain getContract(Integer contractId) {
         Optional<ContractEntityJpa> optionalContractEntityJpa = contractRepositoryJpa.findById(contractId);
-        if (optionalContractEntityJpa.isEmpty()) {
+        if (!optionalContractEntityJpa.isPresent()) {
             throw new NotFoundException(String.format(CONTRACT_ID_MSG_FORMAT_EXCEPTION, contractId));
         }
 

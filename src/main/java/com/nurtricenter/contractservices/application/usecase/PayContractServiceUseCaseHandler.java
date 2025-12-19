@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -69,7 +70,8 @@ public class PayContractServiceUseCaseHandler implements Command.Handler<PayCont
                                             .getValue())));
 
                     return invoiceDetailDomain;
-                }).toList());
+                })
+                .collect(Collectors.toList()));
 
         return invoiceDomain;
     }

@@ -9,6 +9,7 @@ import com.nurtricenter.contractservices.presentation.dto.PrepareContractService
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class PrepareContractMapper {
@@ -27,7 +28,7 @@ public class PrepareContractMapper {
         prepareContractResponseBody.setServices(serviceDomainList
                 .stream()
                 .map(this::toResponse)
-                .toList());
+                .collect(Collectors.toList()));
 
         return prepareContractResponseBody;
     }
@@ -44,7 +45,7 @@ public class PrepareContractMapper {
         prepareContractResponseBody.setServices(contractDomain.getServiceDomainList()
                 .stream()
                 .map(this::toResponse)
-                .toList());
+                .collect(Collectors.toList()));
 
         return prepareContractResponseBody;
     }

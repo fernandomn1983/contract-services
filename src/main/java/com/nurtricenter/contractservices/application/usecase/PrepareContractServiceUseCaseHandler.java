@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -36,7 +37,7 @@ public class PrepareContractServiceUseCaseHandler implements Command.Handler<Pre
 
                     return serviceDomain;
                 })
-                .toList();
+                .collect(Collectors.toList());
         contractDomain.setServiceDomainList(serviceDomainList);
         contractDomain.setPatientDomain(patientDomain);
 
