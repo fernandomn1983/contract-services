@@ -1,6 +1,7 @@
-package com.nurtricenter.contractservices.application.repository;
+package com.nurtricenter.contractservices.unittest.application.repository;
 
 import com.nurtricenter.contractservices.application.mapper.ContractMapper;
+import com.nurtricenter.contractservices.application.repository.ContractRepositoryImpl;
 import com.nurtricenter.contractservices.domain.contract.ContractDomain;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.entity.ContractEntityJpa;
 import com.nurtricenter.contractservices.infrastructure.persistence.jpa.repository.ContractRepositoryJpa;

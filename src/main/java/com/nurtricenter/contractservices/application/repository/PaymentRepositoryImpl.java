@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -40,7 +41,7 @@ public class PaymentRepositoryImpl implements PaymentRepository {
         paymentEntityJpa.setTotalCost(paymentDomain.getTotalPrice().getAmount());
 
         Optional<ContractEntityJpa> optionalPreparedContractEntityJpa = contractRepositoryJpa.findPreparedContractByContractId(contractDomain.getContractId());
-        if (optionalPreparedContractEntityJpa.isEmpty()) {
+        if (!optionalPreparedContractEntityJpa.isPresent()) {
             throw new NotFoundException(String.format(CONTRACT_ID_MSG_FORMAT_EXCEPTION, contractDomain.getContractId()));
         }
         ContractEntityJpa contractEntityJpa = optionalPreparedContractEntityJpa.get();
@@ -88,7 +89,8 @@ public class PaymentRepositoryImpl implements PaymentRepository {
                     invoiceDetailDomain.setTotalAmount(calculateTotalAmount(contractServiceEntityJpa));
 
                     return invoiceDetailDomain;
-                }).toList();
+                })
+                .collect(Collectors.toList());
     }
 
     private BigDecimal calculateTotalAmount(ContractServiceEntityJpa contractServiceEntityJpa) {

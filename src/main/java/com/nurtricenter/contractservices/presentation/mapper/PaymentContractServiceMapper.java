@@ -10,6 +10,7 @@ import com.nurtricenter.contractservices.presentation.dto.PaymentInvoiceResponse
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class PaymentContractServiceMapper {
@@ -53,7 +54,7 @@ public class PaymentContractServiceMapper {
 
                     return paymentInvoiceDetailResponseBody;
                 })
-                .toList();
+                .collect(Collectors.toList());
     }
 
 }
