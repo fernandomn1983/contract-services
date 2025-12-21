@@ -13,9 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 @Provider("ContractServiceProvider")
-@PactFolder("D:/Pers/Courses/DiplMicroservices/Repos/contract-services-consumer/target/pacts")
+@PactFolder("D:/Fer/Courses/DiplMicroservicios/Repos/contract-services-consumer/target/pacts")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HealthcheckVerificationPactTest {
+public class VerificationPactTest {
 
     @LocalServerPort
     private int port;
@@ -34,6 +34,11 @@ public class HealthcheckVerificationPactTest {
     @State("Microservice is up and running")
     public void systemIsUpAndRunning() {
         System.out.println("Microservice is up and running");
+    }
+
+    @State("Create Contract Successfully")
+    public void systemCanCreateContractSuccessfully() {
+        System.out.println("Create Contract Successfully");
     }
 
 }
