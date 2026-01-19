@@ -35,17 +35,15 @@ public class PaymentRepositoryImpl implements PaymentRepository {
 
     @Override
     public PaymentDomain pay(PaymentDomain paymentDomain, ContractDomain contractDomain) {
-        contractDomain.pay();
-
-        PaymentEntityJpa paymentEntityJpa = new PaymentEntityJpa();
-        paymentEntityJpa.setTotalCost(paymentDomain.getTotalPrice().getAmount());
-
         Optional<ContractEntityJpa> optionalPreparedContractEntityJpa = contractRepositoryJpa.findPreparedContractByContractId(contractDomain.getContractId());
         if (!optionalPreparedContractEntityJpa.isPresent()) {
             throw new NotFoundException(String.format(CONTRACT_ID_MSG_FORMAT_EXCEPTION, contractDomain.getContractId()));
         }
         ContractEntityJpa contractEntityJpa = optionalPreparedContractEntityJpa.get();
         contractEntityJpa.setStatus(contractDomain.getContractStatus().getCode());
+
+        PaymentEntityJpa paymentEntityJpa = new PaymentEntityJpa();
+        paymentEntityJpa.setTotalCost(paymentDomain.getTotalPrice().getAmount());
         paymentEntityJpa.setContractEntityJpa(contractEntityJpa);
 
         InvoiceEntityJpa invoiceEntityJpa = prepareInvoiceEntityJpa(paymentDomain.getInvoiceDomain());

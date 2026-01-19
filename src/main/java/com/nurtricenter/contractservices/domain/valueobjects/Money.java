@@ -16,19 +16,13 @@ public class Money {
     private final String currencyCode;
 
     public Money(BigDecimal amount) throws InvalidValueException {
-        this.currency = DEFAULT_CURRENCY;
-        this.amount = amount.setScale(MAX_DECIMALS, RoundingMode.HALF_UP);
-        this.currencyCode = DEFAULT_CURRENCY_CODE;
-    }
-
-    private BigDecimal prepareCurrencyAmount(String amount) throws InvalidValueException {
-        BigDecimal moneyAmount = new BigDecimal(amount);
-
-        if (moneyAmount.compareTo(BigDecimal.ZERO) < 0) {
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new InvalidValueException("Money");
         }
 
-        return moneyAmount.setScale(MAX_DECIMALS, RoundingMode.HALF_UP);
+        this.currency = DEFAULT_CURRENCY;
+        this.amount = amount.setScale(MAX_DECIMALS, RoundingMode.HALF_UP);
+        this.currencyCode = DEFAULT_CURRENCY_CODE;
     }
 
     public BigDecimal getAmount() {

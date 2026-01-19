@@ -22,10 +22,6 @@ public enum Status {
         return code;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public static Status fromCode(Integer code) {
         if (code == null) {
             throw new InvalidValueException(String.format(INVALID_CODE_MSG_FORMAT_EXCEPTION, code));

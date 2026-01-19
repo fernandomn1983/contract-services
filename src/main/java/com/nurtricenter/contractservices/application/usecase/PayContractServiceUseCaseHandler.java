@@ -35,6 +35,7 @@ public class PayContractServiceUseCaseHandler implements Command.Handler<PayCont
         PaymentDomain paymentDomain = preparePayment(invoiceDomain);
         paymentDomain.setInvoiceDomain(invoiceDomain);
 
+        contractDomain.pay();
         PaymentDomain paymentDomainSaved = paymentRepository.pay(paymentDomain, contractDomain);
         paymentDomainSaved.getInvoiceDomain().setTaxIdentifier(metadataValues.getCompanyTaxIdentifier());
 
