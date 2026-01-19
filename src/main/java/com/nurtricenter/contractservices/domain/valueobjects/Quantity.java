@@ -12,7 +12,7 @@ public class Quantity {
     }
 
     private int prepareValue(int value) throws InvalidValueException {
-        if (value < 0) {
+        if (value <= 0) {
             throw new InvalidValueException("Quantity");
         }
 
