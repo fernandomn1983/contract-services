@@ -27,10 +27,9 @@ public class ContractServiceController {
         return ResponseEntity.ok(I_AM_ALIVE);
     }
 
-    @PostMapping
+    @PostMapping(path = {"", "/"})
     @ResponseStatus
-    public ResponseEntity<?> prepareContractService(
-            @RequestBody PrepareContractRequestBody prepareContractRequestBody) {
+    public ResponseEntity<?> prepareContractService(@RequestBody PrepareContractRequestBody prepareContractRequestBody) {
         try {
             PrepareContractServiceUseCaseCommand prepareContractServiceUseCaseCommand = new PrepareContractServiceUseCaseCommand(
                     prepareContractRequestBody);
