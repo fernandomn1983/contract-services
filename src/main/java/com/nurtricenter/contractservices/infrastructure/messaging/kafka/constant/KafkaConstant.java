@@ -16,4 +16,11 @@ public final class KafkaConstant {
     public static final int MAX_POLL_RECORDS_VALUE = 10;
     public static final int MAX_CONCURRENCY = 3;
 
+    public static final String STARTING_PROCESS_MESSAGE_LOG = "Starting to process message. transactionId = {}";
+    public static final String MESSAGE_PROCESSING_FINISHED_LOG = "Message processing finished. transactionId = {}";
+    public static final String ERROR_PROCESSING_MESSAGE_LOG = "Error processing message. transactionId = {}, error = {}";
+
+    public static final String ERROR_DESERIALIZING_INBOUND_MESSAGE_LOG = "Error deserializing inbound message. error = {}";
+    public static final String ERROR_DESERIALIZING_UUID_VALUE_LOG = "Error deserializing UUID value. uuidString = {}, error= {}";
+
 }

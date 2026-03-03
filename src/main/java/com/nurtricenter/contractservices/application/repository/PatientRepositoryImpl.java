@@ -18,9 +18,9 @@ public class PatientRepositoryImpl implements PatientRepository {
     @Override
     public PatientDomain upsertPatient(PatientDomain patientDomain) {
         PatientEntityJpa patientEntityJpa = patientMapper.toJpaEntity(patientDomain);
-        PatientEntityJpa patientEntityResult = patientRepositoryJpa.save(patientEntityJpa);
+        PatientEntityJpa patientEntityJpaResult = patientRepositoryJpa.save(patientEntityJpa);
 
-        return patientMapper.toDomain(patientEntityResult);
+        return patientMapper.toDomain(patientEntityJpaResult);
     }
 
 }

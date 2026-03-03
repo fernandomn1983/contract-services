@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-import static com.nurtricenter.contractservices.application.messaging.constant.InboundConstant.*;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InboundMessageDto {
+public class InboundMessageDto<T> {
 
     @JsonProperty("transactionId")
     @JsonDeserialize(using = UuidDeserializer.class)
@@ -30,15 +28,18 @@ public class InboundMessageDto {
     private String verb;
 
     @JsonProperty("payload")
-    private InboundPayloadDto payload;
+    private T payload;
 
-    public boolean isProcessable() {
+    public boolean isProcessable(
+            String inputService,
+            String inputOperation,
+            String inputVerb
+    ) {
         return transactionId != null &&
-                SERVICE_INBOUND_VALUE.equals(service) &&
-                OPERATION_INBOUND_VALUE.equals(operation) &&
-                VERB_INBOUND_VALUE.equals(verb) &&
-                payload != null &&
-                payload.getPatientId() != null;
+                inputService.equals(service) &&
+                inputOperation.equals(operation) &&
+                inputVerb.equals(verb) &&
+                payload != null;
     }
 
 }
