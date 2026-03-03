@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 @Builder
-public class OutboundPayloadDto {
+public class OutboundPatientPayloadDto {
 
     @JsonProperty("patientId")
     private UUID patientId;

@@ -1,16 +1,15 @@
 package com.nurtricenter.contractservices.application.messaging.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nurtricenter.contractservices.application.messaging.constant.OutboundConstant;
 import lombok.Builder;
 import lombok.Data;
 
 import java.util.UUID;
 
-import static com.nurtricenter.contractservices.application.messaging.constant.OutboundConstant.*;
-
 @Data
 @Builder
-public class OutboundMessageDto {
+public class OutboundMessageDto<T> {
 
     @JsonProperty("transactionId")
     private UUID transactionId;
@@ -25,17 +24,20 @@ public class OutboundMessageDto {
     private String verb;
 
     @JsonProperty("payload")
-    private OutboundPayloadDto payload;
+    private T payload;
 
-    public static OutboundMessageDto createConfirmation(UUID transactionId, UUID patientId) {
-        return OutboundMessageDto.builder()
+    public static <T> OutboundMessageDto<T> createConfirmation(
+            UUID transactionId,
+            String operation,
+            String verb,
+            T payload
+    ) {
+        return OutboundMessageDto.<T>builder()
                 .transactionId(transactionId)
-                .service(PATIENT_SERVICE_OUTBOUND_TARGET_VALUE)
-                .operation(PATIENT_OPERATION_OUTBOUND_VALUE)
-                .verb(PATIENT_VERB_OUTBOUND_VALUE)
-                .payload(OutboundPayloadDto.builder()
-                        .patientId(patientId)
-                        .build())
+                .service(OutboundConstant.PATIENT_SERVICE_OUTBOUND_TARGET_VALUE)
+                .operation(operation)
+                .verb(verb)
+                .payload(payload)
                 .build();
     }
 

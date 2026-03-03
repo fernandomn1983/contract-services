@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InboundPayloadDto {
+public class InboundPatientPayloadDto {
 
     @JsonProperty("patientId")
     private UUID patientId;

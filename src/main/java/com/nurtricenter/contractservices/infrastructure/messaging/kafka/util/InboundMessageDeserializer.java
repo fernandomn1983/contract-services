@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nurtricenter.contractservices.application.messaging.dto.InboundMessageDto;
+import com.nurtricenter.contractservices.infrastructure.messaging.kafka.constant.KafkaConstant;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Deserializer;
 
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 public class InboundMessageDeserializer implements Deserializer<InboundMessageDto> {
 
     private final ObjectMapper mapper = new ObjectMapper()
@@ -25,6 +28,7 @@ public class InboundMessageDeserializer implements Deserializer<InboundMessageDt
 
             return mapper.readValue(json, InboundMessageDto.class);
         } catch (Exception e) {
+            log.error(KafkaConstant.ERROR_DESERIALIZING_INBOUND_MESSAGE_LOG, e.getMessage());
             throw new RuntimeException(e);
         }
     }

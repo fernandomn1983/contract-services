@@ -8,7 +8,8 @@ public class OutboundConstant {
 
     public static final String PATIENT_SERVICE_OUTBOUND_TARGET_VALUE = "nutritional-control";
     public static final String PATIENT_OPERATION_OUTBOUND_VALUE = "sync-patient";
-    public static final String PATIENT_VERB_OUTBOUND_VALUE = "confirming";
+    public static final String SERVICE_OUTBOUND_OPERATION_VALUE = "sync-service";
+    public static final String CONFIRMING_VERB_VALUE = "confirming";
     public static final String OUTBOUND_TOPIC = "${kafka.topics.outbound}";
     public static final String PATIENT_AGGREGATE_TYPE = "PatientSync";
 
