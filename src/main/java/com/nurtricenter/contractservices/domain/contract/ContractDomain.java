@@ -9,73 +9,73 @@ import java.util.List;
 
 public class ContractDomain {
 
-    private int contractId;
-    private LocalDateTime contractStartDate;
-    private LocalDateTime contractEndDate;
-    private Status contractStatus;
+	private int contractId;
+	private LocalDateTime contractStartDate;
+	private LocalDateTime contractEndDate;
+	private Status contractStatus;
 
-    private PatientDomain patientDomain;
+	private PatientDomain patientDomain;
 
-    private List<ServiceDomain> serviceDomainList;
+	private List<ServiceDomain> serviceDomainList;
 
-    public LocalDateTime getContractStartDate() {
-        return contractStartDate;
-    }
+	public LocalDateTime getContractStartDate() {
+		return contractStartDate;
+	}
 
-    public void setContractStartDate(LocalDateTime contractStartDate) {
-        this.contractStartDate = contractStartDate;
-    }
+	public void setContractStartDate(LocalDateTime contractStartDate) {
+		this.contractStartDate = contractStartDate;
+	}
 
-    public LocalDateTime getContractEndDate() {
-        return contractEndDate;
-    }
+	public LocalDateTime getContractEndDate() {
+		return contractEndDate;
+	}
 
-    public void setContractEndDate(LocalDateTime contractEndDate) {
-        this.contractEndDate = contractEndDate;
-    }
+	public void setContractEndDate(LocalDateTime contractEndDate) {
+		this.contractEndDate = contractEndDate;
+	}
 
-    public Status getContractStatus() {
-        return contractStatus;
-    }
+	public Status getContractStatus() {
+		return contractStatus;
+	}
 
-    public void setContractStatus(Status contractStatus) {
-        this.contractStatus = contractStatus;
-    }
+	public void setContractStatus(Status contractStatus) {
+		this.contractStatus = contractStatus;
+	}
 
-    public int getContractId() {
-        return contractId;
-    }
+	public int getContractId() {
+		return contractId;
+	}
 
-    public void setContractId(int contractId) {
-        this.contractId = contractId;
-    }
+	public void setContractId(int contractId) {
+		this.contractId = contractId;
+	}
 
-    public PatientDomain getPatientDomain() {
-        return patientDomain;
-    }
+	public PatientDomain getPatientDomain() {
+		return patientDomain;
+	}
 
-    public void setPatientDomain(PatientDomain patientDomain) {
-        this.patientDomain = patientDomain;
-    }
+	public void setPatientDomain(PatientDomain patientDomain) {
+		this.patientDomain = patientDomain;
+	}
 
-    public List<ServiceDomain> getServiceDomainList() {
-        return serviceDomainList;
-    }
+	public List<ServiceDomain> getServiceDomainList() {
+		return serviceDomainList;
+	}
 
-    public void setServiceDomainList(List<ServiceDomain> serviceDomainList) {
-        this.serviceDomainList = serviceDomainList;
-    }
+	public void setServiceDomainList(List<ServiceDomain> serviceDomainList) {
+		this.serviceDomainList = serviceDomainList;
+	}
 
-    public void cancel() {
-        this.contractStatus = Status.CANCELED;
-    }
+	public void cancel() {
+		this.contractStatus = Status.CANCELED;
+	}
 
-    public void pay() {
-        this.contractStatus = Status.PAID;
-    }
+	public void pay() {
+		this.contractStatus = Status.PAID;
+	}
 
-    public void prepare() {
-        this.contractStatus = Status.PREPARED;
-    }
+	public void prepare() {
+		this.contractStatus = Status.PREPARED;
+	}
 
 }
