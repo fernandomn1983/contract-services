@@ -34,7 +34,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: >
           ./mvnw -B -ntp clean package verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-          -Dsonar.projectKey=TU_PROJECT_KEY
-          -Dsonar.organization=TU_ORGANIZACION
+          -Dsonar.projectKey=fernandomn1983_contract-services
+          -Dsonar.organization=fernandomn1983
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
