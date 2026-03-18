@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Node ###
+node_modules/
+package-lock.json
+
+# Error Logs of npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

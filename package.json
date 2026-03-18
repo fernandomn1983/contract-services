@@ -1,0 +1,31 @@
+{
+	"name": "contract-services",
+	"version": "1.0.0",
+	"description": "Register and allow the payment of a Service contracted by a Patient",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prepare": "husky"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fernandomn1983/contract-services.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/fernandomn1983/contract-services/issues"
+	},
+	"homepage": "https://github.com/fernandomn1983/contract-services#readme",
+	"devDependencies": {
+		"editorconfig-checker": "^6.1.1",
+		"husky": "^9.1.7"
+	},
+	"lint-staged": {
+		"*.{java,xml,properties,yml,yaml}": [
+			"npx editorconfig-checker"
+		]
+	}
+}
