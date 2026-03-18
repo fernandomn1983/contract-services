@@ -19,6 +19,7 @@
 		<lombok.version>1.18.42</lombok.version>
 		<junit.version>6.0.1</junit.version>
 		<mockito.version>5.14.0</mockito.version>
+		<sonar.organization>fernandomn1983</sonar.organization>
 	</properties>
 
 	<dependencyManagement>
