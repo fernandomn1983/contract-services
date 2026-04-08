@@ -4,7 +4,9 @@
 	"description": "Register and allow the payment of a Service contracted by a Patient",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"format": "mvn spotless:apply",
+		"test": "mvn test",
+		"pre-commit": "sh .husky/pre-commit",
 		"prepare": "husky"
 	},
 	"repository": {

@@ -1,4 +1,24 @@
-#!/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
 
-npx lint-staged
+echo "Running pre-commit checks..."
+
+# Get staged Java files (works in Git Bash)
+STAGED_JAVA_FILES=$(git diff --cached --name-only --diff-filter=d -- '*.java')
+
+if [ -n "$STAGED_JAVA_FILES" ]; then
+    echo "Formatting staged Java files..."
+    mvn spotless:apply
+    git add $STAGED_JAVA_FILES
+    echo "Formatting complete"
+fi
+
+echo "Running unit tests..."
+mvn clean test
+
+if [ $? -ne 0 ]; then
+    echo "Unit tests failed! Commit aborted."
+    exit 1
+fi
+
+echo "All checks passed!"
