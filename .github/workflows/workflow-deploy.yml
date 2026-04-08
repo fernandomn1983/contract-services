@@ -1,0 +1,63 @@
+name: Deploying Contract Services
+
+on:
+  workflow_run:
+    workflows: ["Building Contract Services"]
+    types:
+      - completed
+    branches: ["master"]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: contract-services-jar
+          path: ./artifact
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+      
+      - name: Find JAR file
+        id: find-jar
+        run: |
+          JAR_PATH=$(find ./artifact -name "*.jar" -type f | head -n 1)
+          echo "jar_path=$JAR_PATH" >> $GITHUB_OUTPUT
+          echo "Found JAR at: $JAR_PATH"
+      
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DROPLET_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.DROPLET_HOST }} >> ~/.ssh/known_hosts
+      
+      - name: Copy JAR
+        run: |
+          scp -i ~/.ssh/deploy_key \
+            ${{ steps.find-jar.outputs.jar_path }} \
+            ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_HOST }}:/opt/contract-services/contract-services.jar.new
+      
+      - name: Stop, deploy, and restart service
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_HOST }} << 'EOF'
+            sudo systemctl stop contract-services.service
+            
+            mv /opt/contract-services/contract-services.jar.new /opt/contract-services/contract-services.jar
+            
+            chmod 755 /opt/contract-services/contract-services.jar
+            
+            sudo systemctl start contract-services.service
+            
+            sudo systemctl status contract-services.service --no-pager
+          EOF
+      
+      - name: Verify deployment
+        run: |
+          sleep 5
+          ssh -i ~/.ssh/deploy_key ${{ secrets.DROPLET_USERNAME }}@${{ secrets.DROPLET_HOST }} \
+            'sudo systemctl is-active contract-services.service'
