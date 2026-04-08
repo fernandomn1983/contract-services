@@ -27,6 +27,13 @@ jobs:
       - name: Download dependencies (go offline)
         run: ./mvnw -B -ntp dependency:go-offline
 
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-services-jar
+          path: target/*.jar
+          retention-days: 1
+
       - name: Analyze and Build JAR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
