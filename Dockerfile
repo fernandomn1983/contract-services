@@ -28,5 +28,4 @@ COPY --from=build /workspace/${JAR_FILE} /app/app.jar
 
 EXPOSE ${APP_PORT}
 
-#ENTRYPOINT ["java", "-Dspring.profiles.active=local", "-Dspring.datasource.url=jdbc:postgresql://postgres:5432/contract_services", "-jar", "/app/app.jar"]
 ENTRYPOINT ["java", "-Dspring.profiles.active=local", "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/contract_services", "-jar", "/app/app.jar"]
