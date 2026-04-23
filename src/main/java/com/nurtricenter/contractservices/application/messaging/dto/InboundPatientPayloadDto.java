@@ -1,27 +1,25 @@
 package com.nurtricenter.contractservices.application.messaging.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class InboundPatientPayloadDto {
 
-    @JsonProperty("patientId")
+    @JsonProperty("id")
     private UUID patientId;
 
-    @JsonProperty("patientName")
+    @JsonProperty("fullName")
     private String patientName;
 
-    @JsonProperty("patientLastName")
+    @JsonProperty("lastName")
     private String patientLastName;
 
-    @JsonProperty("patientIdentityDocument")
+    @JsonProperty("identityCard")
     private String patientIdentityDocument;
-
 }
