@@ -1,5 +1,5 @@
 # Building
-FROM maven:3-eclipse-temurin-25 AS build
+FROM maven:3-eclipse-temurin-21 AS build
 
 LABEL FULL_NAME="Fernando Murillo Noya"
 LABEL EMAIL_MAINTAINER="fernando.murillo.noya@gmail.com"
@@ -16,7 +16,7 @@ COPY src ./src
 RUN --mount=type=cache,target=/root/.m2 mvn clean package
 
 # Running
-FROM eclipse-temurin:25-alpine
+FROM eclipse-temurin:21-alpine
 
 WORKDIR /app
 
