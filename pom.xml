@@ -159,6 +159,19 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
+						<configuration>
+							<includes>
+								<include>com/nurtricenter/contractservices/application/**</include>
+								<include>com/nurtricenter/contractservices/domain/**</include>
+							</includes>
+							<excludes>
+								<exclude>com/nurtricenter/contractservices/infrastructure/**</exclude>
+								<exclude>com/nurtricenter/contractservices/presentation/**</exclude>
+								<exclude>com/nurtricenter/contractservices/configuration/**</exclude>
+								<exclude>com/nurtricenter/contractservices/application/mapper/**</exclude>
+								<exclude>com/nurtricenter/contractservices/application/messaging/**</exclude>
+							</excludes>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
