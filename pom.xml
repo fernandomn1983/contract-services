@@ -168,6 +168,8 @@
 								<exclude>com/nurtricenter/contractservices/infrastructure/**</exclude>
 								<exclude>com/nurtricenter/contractservices/presentation/**</exclude>
 								<exclude>com/nurtricenter/contractservices/configuration/**</exclude>
+								<exclude>com/nurtricenter/contractservices/application/mapper/**</exclude>
+								<exclude>com/nurtricenter/contractservices/application/messaging/**</exclude>
 							</excludes>
 						</configuration>
 					</execution>
